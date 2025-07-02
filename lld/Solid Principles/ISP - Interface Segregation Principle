@@ -1,0 +1,40 @@
+// Code same as LSP
+// ISP - Clients should not be forced to depend on methods they do not use.
+
+// 👉 Don’t make one big interface that forces every product to have all methods (like getPrice(), getExpiryDate(), getWarrantyPeriod()).
+//    Because not all products have expiry dates or warranties:
+// 🥛 Milk has ExpiryDate, but no warranty.
+// 💻 Laptop has WarrantyPeriod, but no expiry date.
+// 🎁 Gift Card has neither expiry date nor warranty (or price if it’s free).
+// 👉 FreeProduct doesn’t have a price, so it shouldn’t be forced to implement getPrice().
+
+//  Example -  Instead in case of FreeProduct, create two interfaces: one interface for Product (with id, name) and another interface for PricedProduct (which inherits Product interface and adds getPrice()). [SHOWN in LSP code]
+
+// ✅ Split into smaller interfaces so each product only has the methods it really needs.
+
+
+
+✅ 1️⃣ BaseProduct
+class Product {
+public:
+    virtual int getId() = 0;
+    virtual string getName() = 0;
+};
+
+✅ 2️⃣ PricedProduct
+class PricedProduct : public Product {
+public:
+    virtual int getPrice() = 0;
+};
+
+✅ 3️⃣ ExpirableProduct
+class ExpirableProduct : public Product {
+public:
+    virtual string getExpiryDate() = 0;
+};
+
+✅ 4️⃣ WarrantyProduct
+class WarrantyProduct : public Product {
+public:
+    virtual int getWarrantyPeriodMonths() = 0;
+};
