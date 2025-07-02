@@ -1,3 +1,5 @@
+Read from right to left - 
+
 ![image](https://github.com/user-attachments/assets/c04e7078-4f30-4e94-872c-f58229238817)
 
 
