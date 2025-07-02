@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+class Product {
+    public:
+        int id;
+        string name;
+        int price;
+        
+        Product(int id, string name, int price){
+            this->id=id;
+            this->name=name;
+            this->price=price;
+        }
+};
+
+class ShoppingCart{
+    private:
+        vector<Product*> products;
+    public:
+
+        void addProduct(Product* p) {
+            products.push_back(p);
+        }
+        
+        vector<Product*> getProducts() {
+            return products;
+        }
+        
+        int calculatePrice() {
+            int totalPrice = 0;
+            for(auto product : products) {
+                totalPrice+=product->price;
+            }
+            return totalPrice;
+        }
+};
+
+class Presistance {
+    private:
+        ShoppingCart* cartObj;
+    public:
+        Presistance(ShoppingCart* cart) {
+            this->cartObj = cart;
+        }
+        
+        ShoppingCart* getCart() {
+            return cartObj;
+        }
+        
+        virtual void store() = 0;
+    
+};
+
+class SaveToDatabase : public Presistance{
+    public:
+        SaveToDatabase(ShoppingCart* cart) : Presistance(cart) {
+        }
+        void store(){
+             for(auto product : getCart()->getProducts()) {
+                cout<<"Save to DB - Product name: "<<product->name<<endl;
+            }
+        }
+};
+
+class SaveToFile : public Presistance{
+    public:
+      SaveToFile(ShoppingCart* cart) : Presistance(cart) {
+        }
+     void store(){
+         for(auto product : getCart()->getProducts()) {
+            cout<<"Save to File - Product name: "<<product->name<<endl;
+        }
+    }
+};
+
+int main() {
+	
+	ShoppingCart* cart = new ShoppingCart();
+	cart->addProduct(new Product(1,"headphones",2000));
+	cart->addProduct(new Product(2,"pen",100));
+	
+	Presistance* saveToFile = new SaveToFile(cart);
+	saveToFile->store();
+	
+	Presistance* saveToDatabase = new SaveToDatabase(cart);
+	saveToDatabase->store();
+
+}
