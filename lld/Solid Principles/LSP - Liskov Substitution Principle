@@ -1,0 +1,146 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+class Product {
+public:
+    virtual int getId() = 0;
+    virtual string getName() = 0;
+};
+
+
+class PricedProduct : public Product {
+public:
+    virtual int getPrice() = 0;
+};
+
+
+class FreeProduct : public Product {
+    private:
+        int id;
+        string name;
+        
+    public:
+        FreeProduct(int id, string name){
+            this->id=id;
+            this->name=name;
+        }
+        
+        int getId() override {
+            return id;
+        }
+        
+        string getName() override {
+            return name;
+        }
+        
+        void print() {
+            cout<<id<<" "<<name;
+        }
+};
+
+
+class NormalProduct : public PricedProduct {
+    private:
+        int id;
+        string name;
+        int price;
+        
+    public:
+        NormalProduct(int id, string name, int price){
+            this->id=id;
+            this->name=name;
+            this->price=price;
+        }
+        
+        int getId() override {
+            return id;
+        }
+        
+        string getName() override {
+            return name;
+        }
+    
+        int getPrice() override {
+            return price;
+        }
+};
+
+class ShoppingCart{
+    private:
+        vector<PricedProduct*> products;
+    public:
+
+        void addProduct(PricedProduct* p) {
+            products.push_back(p);
+        }
+        
+        vector<PricedProduct*> getProducts() {
+            return products;
+        }
+        
+        int calculatePrice() {
+            int totalPrice = 0;
+            for(auto product : products) {
+                totalPrice+=product->getPrice();
+            }
+            return totalPrice;
+        }
+};
+
+class Presistance {
+    private:
+        ShoppingCart* cartObj;
+    public:
+        Presistance(ShoppingCart* cart) {
+            this->cartObj = cart;
+        }
+        
+        ShoppingCart* getCart() {
+            return cartObj;
+        }
+        
+        virtual void store() = 0;
+    
+};
+
+class SaveToDatabase : public Presistance{
+    public:
+        SaveToDatabase(ShoppingCart* cart) : Presistance(cart) {
+        }
+        void store(){
+             for(auto product : getCart()->getProducts()) {
+                cout<<"Save to DB - Product name: "<<product->getName()<<endl;
+            }
+        }
+};
+
+class SaveToFile : public Presistance{
+    public:
+      SaveToFile(ShoppingCart* cart) : Presistance(cart) {
+        }
+     void store(){
+         for(auto product : getCart()->getProducts()) {
+            cout<<"Save to File - Product name: "<<product->getName()<<endl;
+        }
+    }
+};
+
+int main() {
+	// your code goes here
+	
+	ShoppingCart* cart = new ShoppingCart();
+	cart->addProduct(new NormalProduct(1,"headphones",2000));
+	cart->addProduct(new NormalProduct(2,"pen",100));
+	
+	Presistance* saveToFile = new SaveToFile(cart);
+	saveToFile->store();
+	
+	Presistance* saveToDatabase = new SaveToDatabase(cart);
+	saveToDatabase->store();
+	
+	FreeProduct* freeProduct = new FreeProduct(3, "t-shirt"); 
+	freeProduct->print();
+	
+
+}
