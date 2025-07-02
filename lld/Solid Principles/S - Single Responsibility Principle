@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Product {
+public:
+    int id;
+    string name;
+    int price;
+
+    Product(int id, string name, int price) {
+        this->id = id;
+        this->name = name;
+        this->price = price;
+    }
+};
+
+class ShoppingCart {
+private:
+    vector<Product*> productList;
+public:
+
+    void addProduct(Product* product) {
+        productList.push_back(product);
+    }
+
+    vector<Product*> getProducts() {
+        return productList;
+    }
+
+    int calculateTotalPrice() {
+        int totalPrice = 0;
+        for (auto product : productList) {
+            totalPrice += product->price;
+        }
+        return totalPrice;
+    }
+};
+
+class DatabasePersistence {
+private:
+    ShoppingCart* cart;
+public:
+    DatabasePersistence(ShoppingCart* shoppingCart) {
+        this->cart = shoppingCart;
+    }
+
+     void store() {
+        for (auto product : cart->getProducts()) {
+            cout << "Saving to Database - Product name: " << product->name << endl;
+        }
+    }
+};
+
+int main() {
+    ShoppingCart* shoppingCart = new ShoppingCart();
+    shoppingCart->addProduct(new Product(1, "Headphones", 2000));
+    shoppingCart->addProduct(new Product(2, "Pen", 100));
+
+    DatabasePersistence* databasePersistence = new DatabasePersistence(shoppingCart);
+    databasePersistence->store();
+
+    return 0;
+}
