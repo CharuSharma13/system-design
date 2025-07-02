@@ -1,0 +1,6 @@
+// Same as OCP code
+
+// High-level modules (like ShoppingCart) should not depend directly on low-level modules (like SaveToDatabase). (Both should depend on abstractions/interface).
+// Instead of making ShoppingCart (or your app) depend on concrete saving logic, you create an interface (Persistence), and let both ShoppingCart and the save logic depend on that interface. This is Dependency Inversion Principle.
+// Here in code, now if we later create SaveToCloud (CloudPresistence), we can inject it without changing anything else.
+
