@@ -7,7 +7,8 @@ class Persistence {
     
 };
 
-class FilePersistence : public Persistence {   
+class FilePersistence : public Persistence {
+    
     void save(string doc){
         cout<<"saved in file "<<doc<<endl;
     }
@@ -20,13 +21,15 @@ class DatabasePersistence : public Persistence {
     }
 };
 
-class DocumentElement{   
+class DocumentElement{
+    
     public:
         virtual string render() = 0;
     
 };
 
 class TextElement : public DocumentElement{
+    
     private:
         string text;
         
@@ -35,12 +38,14 @@ class TextElement : public DocumentElement{
             this->text=text;
         }
         string render() override {
+            // cout<<"Text render "<<text<<endl;
             return text;
         }
     
 };
 
-class ImageElement : public DocumentElement{  
+class ImageElement : public DocumentElement{
+    
     private:
         string path;
         
@@ -54,7 +59,8 @@ class ImageElement : public DocumentElement{
     
 };
 
-class Document{   
+class Document{
+    
     private:
         vector<DocumentElement*> elements;
         
@@ -63,14 +69,29 @@ class Document{
             elements.push_back(element);
         }
         
-        string render(){
-            string result;
-            for(auto element:elements){
-                result+=element->render();
-            }
-            return result;
-        };
+        vector<DocumentElement*> getElements(){
+            return elements;
+        }
+        
+        // string render(){
+        //     string result;
+        //     for(auto element:elements){
+        //         result+=element->render();
+        //     }
+        //     return result;
+        // };
     
+};
+
+class DocumentRenderer{
+    public:
+    string documentRender(Document* doc){
+        string result;
+        for(auto element:doc->getElements()){
+            result+=element->render();
+        }
+        return result;
+    }
 };
 
 
@@ -90,14 +111,14 @@ class DocumentEditor{
         void addImage(string path){
             doc->addElement(new ImageElement(path));
         };
-         string render(){
-            if(renderedDocument.empty()){
-                return doc->render();
-            }
-            return renderedDocument;
-        }
-        void save() {
-            storage->save(render());
+        //  string render(){
+        //     if(renderedDocument.empty()){
+        //         return doc->render();
+        //     }
+        //     return renderedDocument;
+        // }
+        void save(string data) {
+            storage->save(data);
         }
 };
 
@@ -110,7 +131,10 @@ int main() {
 	DocumentEditor* docEditor = new DocumentEditor(doc,db);
 	docEditor->addText("this is title");
 	docEditor->addImage("/img/aai.png");
-	cout<<docEditor->render();
-	docEditor->save();
+// 	cout<<docEditor->render();
+	
+	DocumentRenderer* docRender = new DocumentRenderer();
+	docRender->documentRender(doc);
+	docEditor->save(docRender->documentRender(doc));
 
 }
