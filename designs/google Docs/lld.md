@@ -8,14 +8,14 @@
 - **calls** `Document.addElement()` and `Document.render()`
 - **calls** `Persistence.save()`
 
-## Persistence <<interface>>
+## <<interface>> Persistence
 - `FilePersistence` **is a** `Persistence`
 - `DatabasePersistence` **is a** `Persistence`
 
 ## Document
 - **has many** `DocumentElement`
 
-## DocumentElement <<Interface>>
+## <<interface>> DocumentElement
 - `TextElement` **is a** `DocumentElement`
 - `ImageElement` **is a** `DocumentElement`
 
