@@ -1,1 +1,65 @@
+@startuml
+title Traditional Inheritance - Products and Discounts
+
+skinparam classAttributeIconSize 0
+
+' Base Product
+class Product {
+  -id : int
+  -name : string
+  -basePrice : int
+  +getPrice() : int
+  +getName() : string
+}
+
+' Normal Product inherits Product
+class NormalProduct {
+  +getPrice() : int
+}
+
+' Discounted Product inherits NormalProduct
+class DiscountedProduct {
+  -discountPercent : int
+  +getPrice() : int
+}
+
+NormalProduct --|> Product
+DiscountedProduct --|> NormalProduct
+
+' Instances (shown as objects)
+object p1 {
+  :Product
+}
+object p2 {
+  :Product
+}
+object p3 {
+  :NormalProduct
+}
+object p4 {
+  :NormalProduct
+}
+object p5 {
+  :DiscountedProduct
+}
+object p6 {
+  :DiscountedProduct
+}
+
+' Show instantiation
+p1 -[hidden]-> Product
+p2 -[hidden]-> Product
+p3 -[hidden]-> NormalProduct
+p4 -[hidden]-> NormalProduct
+p5 -[hidden]-> DiscountedProduct
+p6 -[hidden]-> DiscountedProduct
+
+p1 ..> Product : instance of
+p2 ..> Product : instance of
+p3 ..> NormalProduct : instance of
+p4 ..> NormalProduct : instance of
+p5 ..> DiscountedProduct : instance of
+p6 ..> DiscountedProduct : instance of
+
+@enduml
 
