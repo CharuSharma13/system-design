@@ -53,13 +53,11 @@ Solution - Introducing a DocumentRenderer which separates concerns clearly, and 
 ### DocumentEditor
 - **has a** `Document`
 - **adds elements** (text, images) to the `Document`
-- **does NOT render or save**
+- **does NOT render**
 
 ### DocumentRenderer
 - **takes** a `Document` and **produces** a rendered `string` output
 
-### Persistence
-- **saves** a rendered `string` (the document content)
 
 
 
