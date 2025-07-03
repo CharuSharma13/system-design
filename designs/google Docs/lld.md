@@ -42,7 +42,8 @@ Solution - Introducing a DocumentRenderer which separates concerns clearly, and 
 
 [plantUml](https://www.plantuml.com/plantuml/uml/ZLFDRjim3BxhAGXVOdjpWLsDekYX7T3RCEm5E9jp1DXo8Ch5W6tlFhco58K9ZEGYX_n-I95wPeVMBTEe3l1c7DbVs14h7J_X6rdMxCZuxpyA_EyJCBvJoSvgCq0_TvNwfpB6ozmj4ndtEj9w99ObqvCjAsWXS5VQuS90JwT0GgTdmweRaHc-wf7kBICmNj3XJ-IxMOTKD6nLH-yVz5iqqe3piTH4KCrnKNo5LNkz1uUt2GUI5YTqHs4HWC9ZnUrvP9q5k_GtMT7MiAUzK-Tc-oW6M3zj1jZtqLv2eagiPQ2OuhBQKGubVl-edAmeCORJwFgBH2fYZSkkNtljPYaOWgbpJuCs9UijoXw20q6RRsPCsb1I7qbYHiAfJDghr-SBmUXJdI_Nxv1SdfZwcFtrqCKseyCgtkWOdj1HdrXbll3uz-51lgXhm8q7f9IONa1cYtyRaA_jMGEABmNKJGD5NO3ajT3Dng4sh9IONQBvCnl24NaFcVVNmi8KXVCjQvgdN3ACcjMpFvTf_0y0)
 
-![image](https://github.com/user-attachments/assets/36032b8a-2fe5-42a5-a501-37931ca86d59)
+![image](https://github.com/user-attachments/assets/14a53d80-6cd1-4647-b8d0-1b7ca4478b1c)
+
 
 
 
