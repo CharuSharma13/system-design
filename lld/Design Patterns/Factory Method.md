@@ -16,8 +16,6 @@ You have **Stores** that decide which product to create:
 - `HolidayStore` sells `DiscountedProduct`
 - `LuxuryStore` sells `PremiumProduct`
 
-`Store` defines the factory method:
-
 ---
 
 Store defines the factory method createProduct().
