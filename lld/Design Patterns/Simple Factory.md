@@ -6,7 +6,8 @@
 
 ## Actual (in code) -
 
-![image](https://github.com/user-attachments/assets/87bda3c5-502b-4a50-be2e-e3bf8735fdfa)
+![image](https://github.com/user-attachments/assets/aa945c83-a382-411d-8d60-cecf239a7666)
+
 
 
 ## Why do we use a Simple Factory?
