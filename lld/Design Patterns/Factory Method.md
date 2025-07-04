@@ -1,9 +1,28 @@
 **Instead of calling a separate factory, you define a factory method inside a creator class (base class), which subclasses override to provide their own products.**
 
-![image](https://github.com/user-attachments/assets/dcae81a2-e43b-4eb3-a89a-983387db6a38)
+![image](https://github.com/user-attachments/assets/a7bfea58-2563-4baf-91c5-2264683c6601)
 
-ProductFactory is an abstract creator (Factory Method) and has createPricingStrategy().
+🎯 **Scenario**
 
-Each subclass (StandardProduct, DiscountProduct) decides which pricing strategy to create.
+You sell different **Product** types:
 
-Client code just calls getFinalPrice() without worrying about the specific strategy.
+- `StandardProduct`
+- `DiscountedProduct`
+- `PremiumProduct`
+
+You have **Stores** that decide which product to create:
+
+- `RegularStore` always sells `StandardProduct`
+- `HolidayStore` sells `DiscountedProduct`
+- `LuxuryStore` sells `PremiumProduct`
+
+`Store` defines the factory method:
+
+---
+
+Store defines the factory method createProduct().
+
+Each Store subclass decides which concrete Product to create.
+
+Client code uses only Store and Product abstractions.
+
