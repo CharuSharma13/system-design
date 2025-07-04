@@ -1,9 +1,11 @@
 A class (the factory) decides which concrete class to create, hiding the object creation logic from the client code.
   
-For understanding
+##For understanding
+
 ![image](https://github.com/user-attachments/assets/a3a6cf4a-03b4-4b0d-a389-52e3ba64dd47)
 
-Actual (in code) -
+##Actual (in code) -
+
 ![image](https://github.com/user-attachments/assets/87bda3c5-502b-4a50-be2e-e3bf8735fdfa)
 
 
