@@ -1,6 +1,7 @@
 **Instead of calling a separate factory, you define a factory method inside a creator class (base class), which subclasses override to provide their own products.**
 
-![image](https://github.com/user-attachments/assets/b5bde8c4-2059-4dd7-902a-1648c055871a)
+![image](https://github.com/user-attachments/assets/8b5db29d-b649-441e-bd72-f0fd58104aae)
+
 
 
 🎯 **Scenario**
