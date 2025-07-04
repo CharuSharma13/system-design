@@ -11,7 +11,7 @@
 
 ## Why do we use a Simple Factory?
 
-**Without it:**
+**Without it: (Refer Strategy Design Pattern)**
 
 - Your code directly calls `new ConcreteClass()` everywhere.
 - You scatter creation logic in many places.
