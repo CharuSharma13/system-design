@@ -1,5 +1,7 @@
 ## DEEP DIVES
 
+**KAFKA**
+
 [Kafka Gaurav Sen (15 min)](https://www.youtube.com/watch?v=hNDjd9I_VGA)
 
 [Kafka Cool Animation (5 min)](https://www.youtube.com/watch?v=-RDyEFvnTXI)
