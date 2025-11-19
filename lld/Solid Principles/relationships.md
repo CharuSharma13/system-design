@@ -169,7 +169,7 @@ A "has-a" relationship where one object **owns** another object and is responsib
 - If the container object is destroyed, the contained object is **also destroyed**.
 - Represents a **strong** form of association.
 
-### vector<T> car (Composition)
+### vector<`T`> car (Composition)
 ➡️ You **own the car** inside your garage.  
 If your garage burns down, the **car is gone too**.
 
