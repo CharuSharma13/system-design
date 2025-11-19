@@ -43,6 +43,55 @@ Deleting the cart should not delete products. (Aggregation - loosely coupled)
 
 ``` cpp
 class Persistance {
+    ShoppingCart *cart;
+    
+    public:
+    Persistance(ShoppingCart *cart) {
+        this->cart = cart;
+    }
+    
+    ShoppingCart* getCart() {
+        return cart;
+    }
+    virtual void store() = 0;
+};
+
+
+class SaveToDatabase : public Persistance {
+    public:
+     SaveToDatabase(ShoppingCart* cart) : Persistance(cart) {
+    }
+     void store() {
+        for (auto product : getCart()->getProductList()) {
+            cout<<"saving "<<product->id <<" to db"<<endl;
+        }
+        cout<< "total price "<< getCart()->calculateTotalPrice()<<endl;
+    }
+};
+
+    Product *product1 = new NormalProduct(1,"shoes", 2000);
+	ShoppingCart *cart = new ShoppingCart();
+	cart->addProduct(product1);
+	Persistance *storage = new SaveToDatabase(cart);
+	storage->store();
+	
+```
+
+✔️ ShoppingCart **HAS-A list of** PricedProduct\
+✔️ Composition/Aggregation depending on ownership
+
+------------------------------------------------------------------------
+
+## 3️⃣ USES (Dependency)
+
+**Definition:**\
+One class *temporarily uses* another class (usually via function
+arguments).
+
+### Example: `Persistence USES ShoppingCart`
+
+``` cpp
+class Persistance {
     public:
     virtual void store(ShoppingCart* cart) = 0;
 };
@@ -66,28 +115,6 @@ class SaveToDatabase : public Persistance {
 	cart->addProduct(product1);
 	Persistance *storage = new SaveToDatabase();
 	storage->store(cart);
-```
-
-✔️ ShoppingCart **HAS-A list of** PricedProduct\
-✔️ Composition/Aggregation depending on ownership
-
-------------------------------------------------------------------------
-
-## 3️⃣ USES (Dependency)
-
-**Definition:**\
-One class *temporarily uses* another class (usually via function
-arguments).
-
-### Example: `Persistence USES ShoppingCart`
-
-``` cpp
-class ShoppingCart { };
-
-class IPersistence {
-public:
-    virtual void save(const ShoppingCart& cart) = 0; // USES
-};
 ```
 
 ✔️ Persistence **USES** ShoppingCart\
