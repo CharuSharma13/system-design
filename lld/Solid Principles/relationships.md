@@ -39,6 +39,8 @@ One class *contains* another class inside it.
 
 ### Example: `ShoppingCart HAS-A PricedProduct`
 
+Deleting the cart should not delete products. (Aggregation - loosely coupled) 
+
 ``` cpp
 class PricedProduct { };
 
