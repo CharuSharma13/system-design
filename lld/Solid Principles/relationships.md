@@ -42,16 +42,30 @@ One class *contains* another class inside it.
 Deleting the cart should not delete products. (Aggregation - loosely coupled) 
 
 ``` cpp
-class PricedProduct { };
-
-class ShoppingCart {
-private:
-    std::vector<PricedProduct*> products;   // HAS-A
-public:
-    void addProduct(PricedProduct* p) {
-        products.push_back(p);
-    }
+class Persistance {
+    public:
+    virtual void store(ShoppingCart* cart) = 0;
 };
+
+
+class SaveToDatabase : public Persistance {
+    
+    public:
+     void store(ShoppingCart* cart) {
+        for (auto product : cart->getProductList()) {
+            cout<<"saving "<<product->id <<" to db"<<endl;
+        }
+        
+        cout<< "total price "<< cart->calculateTotalPrice()<<endl;
+    }
+    
+};
+
+	Product *product1 = new NormalProduct(1,"shoes", 2000);
+	ShoppingCart *cart = new ShoppingCart();
+	cart->addProduct(product1);
+	Persistance *storage = new SaveToDatabase();
+	storage->store(cart);
 ```
 
 ✔️ ShoppingCart **HAS-A list of** PricedProduct\
