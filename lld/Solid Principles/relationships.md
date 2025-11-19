@@ -2,6 +2,9 @@
 
 ### IS-A / HAS-A / USES with ShoppingCart Example
 
+<img width="1462" height="104" alt="image" src="https://github.com/user-attachments/assets/cb5c00fc-8c67-4ec4-9700-a6443504e5a6" />
+
+
 ------------------------------------------------------------------------
 
 ## 1️⃣ IS-A (Inheritance)
