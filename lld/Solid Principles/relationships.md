@@ -142,3 +142,35 @@ public:
 ✔️ `ShoppingCart HAS-A PricedProduct`\
 ✔️ `Persistence USES ShoppingCart`\
 ✔️ `SaveToFile IS-A Persistence`
+
+
+
+
+
+# Understanding Aggregation vs Composition
+
+## Aggregation
+**Definition:**  
+A "has-a" relationship where one object **contains a reference** to another object, but **does not own its lifecycle**.
+
+- The contained object can exist **independently**.
+- If the container object is destroyed, the contained object **still exists**.
+- Represents a **weak** form of association.
+
+### vector<T*> car (Aggregation)
+➡️ You only take the **address of your friend's car**.  
+If your garage burns down, **their car still exists**.
+
+## Composition
+**Definition:**  
+A "has-a" relationship where one object **owns** another object and is responsible for its **lifecycle**.
+
+- The contained object **cannot exist independently**.
+- If the container object is destroyed, the contained object is **also destroyed**.
+- Represents a **strong** form of association.
+
+### vector<T> car (Composition)
+➡️ You **own the car** inside your garage.  
+If your garage burns down, the **car is gone too**.
+
+
