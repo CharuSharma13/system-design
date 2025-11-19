@@ -18,7 +18,7 @@ Solution: You made Presistance abstract, so you can add SaveToFile or SaveToClou
 How to solve via code: Make Presistance abstract/interface and create subclasses for each storage type, so you can add new ones without changing existing code.
 
 ✅ L - Liskov Substitution Principle (LSP)
-Definition: Subtypes must be substitutable for their base types.
+Definition: Subclass must be substitutable for their base types.
 Problem: If you treat every product as having a price, you’re forcing FreeProduct to pretend it has one. This means you either return 0 or throw an error, and any part of the program that expects a real price will break when it gets a FreeProduct.
 Solution: Instead, you create separate types: one for products with prices, and one for products without prices. This way, anything that needs a price only works with priced products, and FreeProduct is never put into places where it doesn’t belong.
 
