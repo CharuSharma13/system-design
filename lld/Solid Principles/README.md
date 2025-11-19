@@ -23,7 +23,7 @@ Problem: If you treat every product as having a price, you’re forcing FreeProd
 Solution: Instead, you create separate types: one for products with prices, and one for products without prices. This way, anything that needs a price only works with priced products, and FreeProduct is never put into places where it doesn’t belong.
 
 ✅ I - Interface Segregation Principle (ISP)
-Definition: Clients should not be forced to depend on methods they do not use.
+Definition: Clients should not be forced to depend on methods they do not use. Split large interfaces into smaller, specific ones.
 Problem: If Product interface had getPrice(), FreeProduct would be forced to implement it unnecessarily.
 Solution: You split Product and PricedProduct, so FreeProduct only depends on getId() and getName(), and NormalProduct adds getPrice().
 
