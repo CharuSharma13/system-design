@@ -35,50 +35,26 @@ Here are the key functional requirements we’ve identified:
 
 Below is a concise explanation of the main components and their roles:
 
-### ParkingLot (Singleton)
-Acts as the central controller of the system, using DCL to manage levels, gates, parking operations, and fare calculation.
+ParkingLot (Singleton) – Single global controller managing levels, gates, parking manager, and fare calculation using thread-safe double-checked locking.
 
-### Level
-Represents a single floor and stores all parking spots available on that level.
+Level – Represents one parking floor and contains all parking spots available on that level.
 
-### ParkingSpot (Interface)
-Defines the structure and behavior of a parking space, including availability and assigned vehicle.
+ParkingSpot (Interface) – Blueprint for a parking space defining its size, availability, and the parked vehicle, implemented by CompactSpot, RegularSpot, and OversizedSpot.
 
-### CompactSpot / RegularSpot / OversizedSpot
-Concrete spot types implementing ParkingSpot based on size compatibility.
+Vehicle (Interface) – Defines common vehicle properties like license plate and size, implemented by Car, Motorcycle, and Truck.
 
-### Vehicle (Interface)
-Provides common vehicle attributes like license plate and size classification.
+VehicleSize (Enum) – Represents supported vehicle sizes: SMALL, MEDIUM, and LARGE.
 
-### Car / Motorcycle / Truck
-Concrete vehicle types implementing the Vehicle interface.
+ParkingStrategy (Strategy Pattern) – Determines how to pick the best available spot, with NearestSpotStrategy, BestFitSpotStrategy, and FarthestFirstSpotStrategy as algorithms.
 
-### VehicleSize (Enum)
-Defines standardized size categories: SMALL, MEDIUM, LARGE.
+FareStrategy (Strategy Pattern) – Defines how parking fees are calculated, with BaseFareStrategy and PeakHoursFareStrategy providing normal-hour and peak-hour billing rules.
 
-### ParkingStrategy (Strategy Pattern)
-Defines how the system selects the most appropriate spot for a given vehicle.
+Ticket – Holds ticket ID, assigned spot, vehicle reference, and entry/exit timestamps for billing.
 
-### NearestSpotStrategy / BestFitSpotStrategy / FarthestFirstSpotStrategy
-Different algorithms for choosing an optimal parking spot.
+ParkingManager – Coordinates spot assignment, maintains mappings and available spots, applies parking strategy, and enforces concurrency via LockManager.
 
-### FareStrategy (Strategy Pattern)
-Defines how parking fare is computed for a given ticket.
+LockManager – Provides thread-safe locking to prevent race conditions when multiple gates attempt spot allocation simultaneously.
 
-### BaseFareStrategy / PeakHoursFareStrategy
-Different billing calculations depending on time or conditions.
-
-### FareCalculator
-Applies one or more FareStrategy implementations to compute the final fare.
-
-### Ticket
-Stores details about the vehicle’s parking session, including spot, entry time, and exit time.
-
-### ParkingManager
-Handles the main parking logic, managing spot allocation, deallocation, and concurrency safety.
-
-### LockManager
-Ensures thread-safe operations by managing locks during concurrent spot allocation.
 
 
 ---
