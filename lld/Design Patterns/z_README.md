@@ -3,3 +3,10 @@
 **Strategy Design Pattern**
 
 **Simple Factory**
+
+**Factory Method**
+
+**Abstract Factory**
+
+**Observer Design Pattern**
+
