@@ -67,3 +67,7 @@ Because all observers share the same interface, the Subject doesn’t care what 
 
 **Observers subscribe to a Subject → Subject changes → Subject calls `notify()` → each Observer’s `update()` method is triggered automatically.**
 
+
+<img width="695" height="688" alt="image" src="https://github.com/user-attachments/assets/7eefc1dd-4bdb-47b9-88ce-5e3c14f5591e" />
+
+
