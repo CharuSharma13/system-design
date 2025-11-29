@@ -1,5 +1,18 @@
 <img width="1465" height="697" alt="image" src="https://github.com/user-attachments/assets/1676b546-7e49-4694-89a4-cc13c97364a7" />
 
+## Functional Requirements
+Users can post questions, answers, and comments on both questions and answers
+Users can upvote or downvote questions and answers. A user can only vote once per post.
+The original poster of a question can accept one answer as the solution.
+Question can have one or more tags
+Users earn or lose reputation points based on upvotes/downvotes on their content and whether their answer is accepted
+Support searching for questions by keywords in the title or body and filtering questions by tags
+
+## Non-Functional Requirements
+Consistency: Voting actions and reputation updates should be strongly consistent and reflected immediately.
+Concurrency: The system must gracefully handle high-concurrency scenarios, such as multiple users voting on the same post simultaneously.
+Scalability: The design should be scalable to accommodate a growing number of users, questions, and answers.
+
 # StackOverflow PlantUML Explanation
 
 Ah! Now I get it — you want the PlantUML explained like a story of interactions: who calls whom, who owns what, who uses what, etc., in plain English, step by step. Let’s do that for StackOverflow:
@@ -33,6 +46,8 @@ Ah! Now I get it — you want the PlantUML explained like a story of interaction
   4. Runs searches using `SearchStrategy`.
 - **Relationship:** `StackOverflowService *-- User` (composition: owns users), same for Questions & Answers
 
+  **Design Pattern Used:** **Facade** – provides a unified interface to a complex subsystem.
+
 ---
 
 ## 3. Questions and Answers
@@ -45,6 +60,8 @@ Ah! Now I get it — you want the PlantUML explained like a story of interaction
   - `Question o-- Tag` → A question has tags (tags exist independently)
 - Voting: When a user votes, the `Post.vote()` method is called, which notifies observers (`ReputationManager`)
 
+  **Design Pattern Used:** **Template / Inheritance** – Post is an abstract template for voting/comment behavior reused by Question and Answer.
+
 ---
 
 ## 4. Observer Pattern
@@ -55,6 +72,9 @@ Ah! Now I get it — you want the PlantUML explained like a story of interaction
   1. User votes on a post → calls `Post.vote()`
   2. `Post` notifies all observers (`notifyObservers`)
   3. `ReputationManager` updates the user’s reputation based on the event
+ 
+**Design Pattern Used:** **Observer** – decouples events (votes/accepts) from consequences (reputation updates). Can add new observers (e.g., badges) without changing Post.
+
 
 ---
 
@@ -78,6 +98,8 @@ Ah! Now I get it — you want the PlantUML explained like a story of interaction
 - `SearchStrategy` is an interface
 - `KeywordSearchStrategy`, `TagSearchStrategy`, `UserSearchStrategy` implement it
 - `StackOverflowService` **uses** these strategies (`StackOverflowService --> SearchStrategy`) to filter questions
+
+**Design Pattern Used:** **Strategy** – allows different search/filter algorithms to be interchangeable.
 
 ---
 
@@ -116,4 +138,14 @@ Ah! Now I get it — you want the PlantUML explained like a story of interaction
 | Post | notifies | PostObserver (ReputationManager) |
 | StackOverflowService | uses | SearchStrategy |
 | Event | links | User (actor), Post (target) |
+
+
+## ✅ Design Patterns Used
+
+| Pattern | Where | Purpose |
+|---------|-------|---------|
+| Facade | StackOverflowService | Provides a unified interface to complex subsystem |
+| Observer | Post / PostObserver / ReputationManager | Decouples vote/accept events from reputation updates |
+| Strategy | SearchStrategy + implementations | Allows flexible search/filter algorithms |
+| Template / Inheritance | Post → Question/Answer | Reuse common voting/comment logic, avoid duplication |
 
