@@ -1,6 +1,6 @@
 <img width="1465" height="697" alt="image" src="https://github.com/user-attachments/assets/1676b546-7e49-4694-89a4-cc13c97364a7" />
 
-# StackOverflow PlantUML Explanation (Plain English)
+# StackOverflow PlantUML Explanation
 
 Ah! Now I get it — you want the PlantUML explained like a story of interactions: who calls whom, who owns what, who uses what, etc., in plain English, step by step. Let’s do that for StackOverflow:
 
