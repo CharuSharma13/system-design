@@ -5,149 +5,181 @@
 <img width="1335" height="659" alt="image" src="https://github.com/user-attachments/assets/dfda966e-bddb-4b11-9586-d96e8c9f6082" />
 
 
-# Parking Lot System – Requirements, Class Design & Design Patterns
+# Parking Lot System – Requirements & Design Overview
 
-## 🚗 Functional Requirements
+## ✅ Functional Requirements
 
-1. The parking lot should have **multiple levels**, each with a configurable number of parking spots.  
-2. Parking spots may be of different types:
-   - **Compact**
-   - **Regular**
-   - **Oversized**
-3. The system must support parking for:
-   - **Motorcycles**
-   - **Cars**
-   - **Trucks**
-4. Vehicles should be assigned a spot based on **vehicle size compatibility**.  
-5. At the **entry gate**, the customer receives a **parking ticket** containing:
-   - Vehicle details  
-   - Entry timestamp  
-6. At the **exit gate**, the customer pays a parking fee based on:
-   - Duration of stay  
-   - Vehicle type  
-   - Time of day (peak/off-peak)  
-7. Must support **multiple entry and exit points**.  
-8. Must support **concurrent access** so multiple vehicles can enter/exit simultaneously.
+Here are the key functional requirements we’ve identified:
+
+- The parking lot should have **multiple levels**, each level containing a set of parking spots.  
+- The parking lot should support different **parking spot types**: compact, regular, and oversized.  
+- The parking lot should accommodate multiple **vehicle types** such as motorcycles, cars, and trucks.  
+- The system must assign spots based on **vehicle size compatibility**.  
+- At **entry**, customers should receive a **parking ticket** with vehicle details and entry time;  
+  at **exit**, fees should be calculated based on duration, vehicle size, and fare strategy (base/peak hours).  
+- The system must support **multiple entry and exit gates**, and handle **concurrent access**, ensuring consistent spot assignment.  
+- The system should allow **pluggable parking strategies** (nearest, best-fit, farthest-first).  
 
 ---
 
-## 🛡 Non-Functional Requirements
+## ✅ Non-Functional Requirements
 
-1. The system must **scale** to support very large parking lots.  
-2. Must provide **reliable tracking** of:
-   - Spot assignments  
-   - Active tickets  
-   - Fee calculations  
-3. Must ensure **thread safety** during concurrent operations.  
-4. Must maintain **data consistency** across levels and vehicle states.
+- The system must **scale** to support large parking lots with many levels and spots.  
+- The system should guarantee **data consistency**, especially with multiple gates operating in parallel.  
+- The system should be **thread-safe**, preventing race conditions during spot allocation.  
+- The architecture should be **extensible**, allowing new vehicle types, spot types, or strategies without breaking existing code.
 
 ---
 
-## 🧱 Classes, Interfaces & Enums
+## ✅ Classes, Interfaces, and Enumerations
 
-### **ParkingLot (Singleton)**
-- Only one instance for the entire system.  
+Below is a concise explanation of the main components and their roles:
+
+---
+
+### ### **ParkingLot (Singleton)**
+- Central controller of the system.  
+- Ensures only one instance exists using **Double-Checked Locking (DCL)**.  
 - Maintains:
-  - List of levels  
-  - Global parking/unparking operations  
-- Ensures **thread-safe** spot assignment.
+  - Levels  
+  - Gates  
+  - ParkingManager  
+  - FareCalculator  
+- Provides:
+  - `enterVehicle()`  
+  - `leaveVehicle()`  
+
+---
 
 ### **Level**
-- Represents a single parking floor.  
-- Contains a list of parking spots.  
-- Responsible for finding and assigning an appropriate spot.
+- Represents a **floor** in the parking lot.  
+- Holds a list of **parking spots**.  
+- Allows fetching all spots for searching or strategy evaluation.
 
-### **ParkingSpot**
-- Represents an individual spot.  
-- Contains:
-  - `spotId`  
-  - `SpotType`  
-  - Availability status  
-  - Parked `Vehicle`  
-- Exposes:
-  - `isAvailable()`  
-  - `park(vehicle)`  
-  - `unpark()`
+---
 
-### **Vehicle (Abstract Class)**
-- Base class for all vehicle types.  
-- Contains:
-  - Vehicle number  
-  - VehicleType  
-- Subclasses:
-  - `Car`  
-  - `Motorcycle`  
-  - `Truck`
+### **ParkingSpot (Interface)**
+Represents an individual parking space.
 
-### **VehicleType (Enum)**
-MOTORCYCLE
-CAR
-TRUCK
+Tracks:
+- `spotNumber`  
+- `size`  
+- whether it is **available**  
+- the **parked vehicle**  
 
+Implemented by:
+- `CompactSpot`  
+- `RegularSpot`  
+- `OversizedSpot`
 
-### **SpotType (Enum)**
-COMPACT
-REGULAR
-OVERSIZED
+---
 
+### **Vehicle (Interface)**
+Abstracts common attributes of vehicles:
+- license plate  
+- size  
+
+Implemented by:
+- `Car`  
+- `Motorcycle`  
+- `Truck`
+
+---
+
+### **VehicleSize (Enum)**
+- `small`  
+- `medium`  
+- `large`
+
+- 
+---
+
+### **ParkingStrategy (Strategy Pattern)**  
+Defines how to find the **best spot**.
+
+Implementations:
+- `NearestSpotStrategy`  
+- `BestFitSpotStrategy`  
+- `FarthestFirstSpotStrategy`
+
+---
+
+### **FareStrategy (Strategy Pattern)**
+Defines how **fare is calculated**.
+
+Implementations:
+- `BaseFareStrategy`  
+- `PeakHoursFareStrategy`  
+
+Used by `FareCalculator`, which may apply one or multiple strategies.
+
+---
 
 ### **Ticket**
-- Contains:
-  - Ticket ID  
-  - Entry timestamp  
-  - Vehicle details  
-  - Assigned parking spot  
+Records:
+- `ticketId`  
+- `vehicle`  
+- `assignedSpot`  
+- `entryTime`  
+- `exitTime`  
+
+Used for billing on exit.
 
 ---
 
-## 🔒 Thread Safety
+### **ParkingManager**
+Core orchestrator of parking operations.
 
-- Parking/unparking is a **critical section**, requiring synchronization.  
-- Using raw `lock()` / `unlock()` manually can cause **deadlocks** and is **not exception-safe**.  
-- Prefer safer constructs:
-  - `lock_guard` / `unique_lock` (C++)  
-  - `ReentrantLock` in Java  
-  - Synchronized blocks (carefully)  
+Maintains:
+- map of **available spots**  
+- **vehicle-to-spot** mapping  
+- selected **ParkingStrategy**  
+- **LockManager** for synchronization  
 
-These ensure the parking lot remains consistent even with multiple entries/exits.
-
----
-
-## 🧩 Design Patterns Used
-
-### **1. Singleton Pattern**
-- Used by `ParkingLot`.  
-- Guarantees only one instance of the parking lot exists globally.
-
-### **2. Factory Method Pattern (Optional)**
-- Can be used for creating vehicles dynamically based on input:
-  - `"car"` → `Car`  
-  - `"truck"` → `Truck`  
-  - `"motorcycle"` → `Motorcycle`
-
-### **3. Observer Pattern (Optional)**
-- ParkingLot can notify subscribers:
-  - When a spot becomes free  
-  - When a level becomes full  
-  - When wait time estimates change  
-
-Useful for dashboards or mobile app updates.
+Responsible for:
+- `parkVehicle()`  
+- `unparkVehicle()`  
 
 ---
 
-## 🧪 Main Class (Demo)
-- Shows:
-  - Creating the parking lot  
-  - Parking different vehicles  
-  - Ticket generation  
-  - Fee calculation  
-  - Unparking flow  
+### **LockManager**
+Handles thread synchronization to avoid **race conditions** during parallel gate operations.
 
+---
 
+## ✅ Design Patterns Used
 
+### ✔ **Singleton Pattern**
+- Used for `ParkingLot`.  
+- Guarantees a single global instance.  
+- Implements **Double-Checked Locking** for safe lazy initialization.
 
+---
 
+### ✔ **Strategy Pattern (Parking Strategy)**
+Allows switching between:
+- Nearest  
+- Best-Fit  
+- Farthest-First  
 
+Makes spot allocation flexible and testable.
 
+---
 
+### ✔ **Strategy Pattern (Fare Strategy)**
+Allows plugging in new billing mechanisms:
+- Base fare  
+- Peak hour surcharge  
+
+---
+
+### ✔ **(Optional) Factory Pattern**
+- Can create vehicles dynamically based on input.
+
+---
+
+### ✔ **(Optional) Observer Pattern**
+- Could notify subscribers about real-time spot availability or level status.
+
+---
 
