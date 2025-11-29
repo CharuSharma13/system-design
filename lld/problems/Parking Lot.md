@@ -35,6 +35,52 @@ Here are the key functional requirements we’ve identified:
 
 Below is a concise explanation of the main components and their roles:
 
+### ParkingLot (Singleton)
+Acts as the central controller of the system, using DCL to manage levels, gates, parking operations, and fare calculation.
+
+### Level
+Represents a single floor and stores all parking spots available on that level.
+
+### ParkingSpot (Interface)
+Defines the structure and behavior of a parking space, including availability and assigned vehicle.
+
+### CompactSpot / RegularSpot / OversizedSpot
+Concrete spot types implementing ParkingSpot based on size compatibility.
+
+### Vehicle (Interface)
+Provides common vehicle attributes like license plate and size classification.
+
+### Car / Motorcycle / Truck
+Concrete vehicle types implementing the Vehicle interface.
+
+### VehicleSize (Enum)
+Defines standardized size categories: SMALL, MEDIUM, LARGE.
+
+### ParkingStrategy (Strategy Pattern)
+Defines how the system selects the most appropriate spot for a given vehicle.
+
+### NearestSpotStrategy / BestFitSpotStrategy / FarthestFirstSpotStrategy
+Different algorithms for choosing an optimal parking spot.
+
+### FareStrategy (Strategy Pattern)
+Defines how parking fare is computed for a given ticket.
+
+### BaseFareStrategy / PeakHoursFareStrategy
+Different billing calculations depending on time or conditions.
+
+### FareCalculator
+Applies one or more FareStrategy implementations to compute the final fare.
+
+### Ticket
+Stores details about the vehicle’s parking session, including spot, entry time, and exit time.
+
+### ParkingManager
+Handles the main parking logic, managing spot allocation, deallocation, and concurrency safety.
+
+### LockManager
+Ensures thread-safe operations by managing locks during concurrent spot allocation.
+
+
 ---
 
 ### ### **ParkingLot (Singleton)**
