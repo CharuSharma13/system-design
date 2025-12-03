@@ -1,10 +1,23 @@
-[Detailed Explanation](https://bytebytego.com/courses/object-oriented-design-interview/design-a-parking-lot)
+<img width="1488" height="638" alt="image" src="https://github.com/user-attachments/assets/3143f42f-9dbe-44f6-8666-6274309840a9" />[Detailed Explanation](https://bytebytego.com/courses/object-oriented-design-interview/design-a-parking-lot)
 
 [PlantUml](https://kroki.io/plantuml/svg/eNq1WEuT2jgQvvtXqHJZUxlSu3skDBUHPISKeRQ4U5WjRmhAhZBYySZhN_PfV5JtIT-gksHRZazuVqvV_fVj-CATKJJ0Tz25I-wABdyDPWccbQXfY5CIFDuc9YGAv_7-0_P-APevWOpYaT2GnybDKFy9Vt0Boh3cYPDmEW8Joli-Af95WjFm6R7kxBX5F-dkvVbTIIrsbhqOJl-mdhsFy3Fodi-e-UNYgsUzRLjQ5miiBGEm8YLCBIMeWCWCsI3lSn1tzzXC1YsolBIMofgpfaVDU55wgU4_a0vpbCxStPuVY8Wr-z-6XW1unXg2p84z13kvbcFlESw_T2ZjsFrM49sxs4BC4XoDVgeeGOBUAp7zNdvxmFTbWbp_wkL5SwlbxjF_uA255RAZHCGh8Iliv6P4T5xTDJnlc4TSw8nPj3XOGiFSYfHPhA1OVvZ6o8o1QHMVygz9Our4XjnBqHKoS7xJKRQV6vyIhUby2tANw_VLBouKvppAVXVNoHxLa3jRCR0-htFr1WUuiPAR0xwBVH_Xwq8xIdU-IjLpO48beHlcAkoNykxs6lLqwdkl3e7AdU5LfhjOZ8Mvy2U4G3690RMc7aaQqewpyhZE_6REFBgVWOFa6l0LIbTJHi-DOBx_Bb79WgRxHC5nnfZKQCJUpm1ORfuoF4FcwCkEz4QZuPomniZ-g7si8XSc3UDWcnCGocDS5Eyh2-F-VKwHcon7oBr21kiIioZSdhUm93-8e3fxvkbhS9c3Cl-2pgUQPATL8LciQFmPr4RfsxtijyBFqe6Zmu_HBO1wokO-5ukTbai4H1VWuKoc1gLD3SeeClniG4HS5VlgmvTUxa7otAjCw_wN3B1BZCZMsC1nrorBKxxQuUpXuJJVbRZ7teLJ8HMY31bmsufkXknMZrIuT0fNzf7g9LV6_mOWiFNM9vqUqqSQjpQH9D7jfifJRaZ1d65zlCrvEc5MP6FcGaXcmJutPVwY5ZDabyt2jVVO3j6OjdXzZD0DNdkB6EFwhKX0nTqbPbKedKH2tz7u0pSXDcnQjG4zgJRlHXoh3x5Mi742DWbBOFzeBtU8qpWmXEybq3wumcJD35kI7-ojyMBFdcw1TR0qH70DtdGGOgNBzx0PPKeYnJxcKNUiiZMK3a_ss7Gi6LQPXOSm-FfarE7CBjEHJSlrktEhrrjTzZvC8gYR990toKQASDSPVcdTX1EYz2fgLRgNo04rcIn03N1fqS-KE84GA5t1MoEM4bNXo9ypZu61PSEbdrLhVmdtQdeZMnAr4RkbZbdlYS13hl6lVXjF8DzJrfI7dbuwrhPXo61G0iMuRPJOpWPNuEpyQTbbBPBnV-_I9LAu2mIluzYYV5ye55Fn4FsX3d8DllLayVwnT0z_YML0_zC-PtGxNavxlK1nZ58rDv7m2OF33numpL14mK2BNtcCVAfQIE8Hoko09apCq7i_wq06_oO6UP8i9D8o5jUS)
 
-<img width="1873" height="606" alt="image" src="https://github.com/user-attachments/assets/c8ed244a-c44a-4fdb-9e54-29840595994d" />
-
 <img width="1335" height="659" alt="image" src="https://github.com/user-attachments/assets/dfda966e-bddb-4b11-9586-d96e8c9f6082" />
+
+In-depth -
+<img width="1873" height="606" alt="image" src="https://github.com/user-attachments/assets/c8ed244a-c44a-4fdb-9e54-29840595994d" />
+add relationship
+<img width="1488" height="638" alt="image" src="https://github.com/user-attachments/assets/b4953481-ca6b-4f68-a78c-0e87fcc20192" />
+
+add observers
+<img width="1857" height="558" alt="image" src="https://github.com/user-attachments/assets/34fa2815-0480-432a-b993-144e2af3d95c" />
+
+add payment
+<img width="1825" height="498" alt="image" src="https://github.com/user-attachments/assets/d095c136-37a3-40d2-bd29-bfa30a9ed1a1" />
+
+
+
+
 
 
 # Parking Lot System – Requirements & Design Overview
@@ -30,6 +43,34 @@ Here are the key functional requirements we’ve identified:
 - The system should guarantee **data consistency**, especially with multiple gates operating in parallel.  
 - The system should be **thread-safe**, preventing race conditions during spot allocation.  
 - The architecture should be **extensible**, allowing new vehicle types, spot types, or strategies without breaking existing code.
+
+---
+
+## ✅ Exception Handling & Failure Scenarios
+
+Interviewer wants to see if you can handle:
+
+- Spot is full
+- No spot for this vehicle type
+- Ticket mismatch
+- Lost ticket scenario
+- Gate system failure
+- Payment decline
+
+A “robust system” discussion is a huge plus.
+
+---
+
+## ✅ API Layer
+
+Add if asked about integration:
+
+- REST APIs:
+- POST /enter
+- POST /exit
+- GET /availability
+- POST /pay
+
 
 ---
 
@@ -205,5 +246,60 @@ Allows plugging in new billing mechanisms:
 ### ✔ **(Optional) Observer Pattern**
 - Could notify subscribers about real-time spot availability or level status.
 
+🔥 ParkingManager → Display Board / Mobile App
+Whenever a spot becomes free or occupied, ParkingManager notifies:
+
+Electronic Display Board
+- Mobile App
+- Dashboard Screen
+- Monitoring System
+
+Why Observer?
+Because many displays depend on spot availability, and they must update automatically whenever state changes.
+
+Interview one-liner:
+We use observer pattern so all display boards automatically update whenever ParkingManager changes available spot count.
 ---
+
+
+
+### Extra points -
+
+## Logging & Audit Trail
+
+Production systems log EVERYTHING.
+
+Add class:
+- AuditLogger
+
+Events logged:
+
+- Vehicle entry
+- Spot assignment
+- Payment
+- Vehicle exit
+- Spot released
+
+This is great to mention for maintainability & debuggability.
+
+## EV Charging Spots (Modern Interviews Love This)
+
+Some companies test if you think beyond basics.
+
+Add:
+- ChargingSpot (extends ParkingSpot)
+- ChargingRateStrategy
+- ChargeSession
+
+
+ ## Caching Frequent Data
+
+For performance:
+- Cache available spots per level
+- Cache number of free spots per vehicle size
+
+Mention:
+“Since querying spot lists repeatedly is expensive, ParkingManager caches availability and invalidates cache on occupy/vacate.”
+
+This shows performance awareness.
 
