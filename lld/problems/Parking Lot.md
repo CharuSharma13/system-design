@@ -13,7 +13,8 @@ add observers
 <img width="1857" height="558" alt="image" src="https://github.com/user-attachments/assets/34fa2815-0480-432a-b993-144e2af3d95c" />
 
 add payment
-<img width="1825" height="498" alt="image" src="https://github.com/user-attachments/assets/d095c136-37a3-40d2-bd29-bfa30a9ed1a1" />
+<img width="1701" height="436" alt="image" src="https://github.com/user-attachments/assets/6fca44b1-865c-43ea-831e-6c01429b52b8" />
+
 
 
 
